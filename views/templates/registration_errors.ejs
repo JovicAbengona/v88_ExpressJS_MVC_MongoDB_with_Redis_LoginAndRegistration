@@ -1,0 +1,10 @@
+<% if(typeof alert != "undefined"){
+    if(alert[0].type == "error"){
+        alert[0].msg.forEach((error) => { %>
+            <p class="error"><%= error.message %></p>
+<%      });    
+    }
+    else{ %>
+        <p class="success"><%= alert[0].msg %></p>
+<%  }
+} %>

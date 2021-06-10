@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="https://learn.village88.com/assets/black_ninja-9adea777014ced1d5d36046555cf036c.ico?v=2" type="image/x-icon">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <title>Village88 | NodeJS (Express) | Registration</title>
+    </head>
+    <body>
+        <header>
+            <h1>CodingDojo Wall</h1>
+            <form action="/login" method="POST" class="login_form">
+                <label>Email Address: <input type="text" name="email" class="email"></label>
+                <label> Password: <input type="password" name="password" class="password"></label>
+                <input type="submit" name="submit" value="Login" class="login">
+            </form>
+            <p class="login_error"></p>
+        </header>
+        <section>
+            <form action="/register" method="POST" class="signup_form">
+                <h3>Don't have an account yet? Sign up now!</h3>
+                <label>Email Address: <input type="text" name="email" class="email"></label>
+                <label>First Name: <input type="text" name="first_name" class="first_name"></label>
+                <label>Last Name: <input type="text" name="last_name" class="last_name"></label>
+                <label>Password: <input type="password" name="password" class="password"></label>
+                <label>Confirm Password: <input type="password" name="confirm_password" class="confirm_password"></label>
+                <input type="submit" name="submit" value="Sign up" class="signup">
+            </form>
+            <div class="messages">
+                <!--  -->
+            </div>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(() => {
+                $(".signup_form").submit(function(){
+                    clearErrors();
+                    $.post($(this).attr("action"), $(this).serialize(), function(res){
+                        $(".messages").html(res);
+                    });
+                    $(this)[0].reset();
+                    return false;
+                });
+
+                $(".login_form").submit(function(){
+                    clearErrors();
+                    $.post($(this).attr("action"), $(this).serialize(), function(res){
+                        if(res == "Success"){
+                            window.location.replace("students/profile");
+                        }
+                        else{
+                            $(".login_error").html(res);
+                        }
+                    });
+                    $(this)[0].reset();
+                    return false;
+                });
+
+                function clearErrors(){
+                    $(".login_error").html("");
+                    $(".messages").html("");
+                }
+            });
+        </script>
+    </body>
+</html>
